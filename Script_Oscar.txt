@@ -1,0 +1,75 @@
+-- Crear una base de datos para el baloncesto
+CREATE DATABASE BasketballDB;
+GO
+
+-- Usar la base de datos
+USE BasketballDB;
+GO
+
+-- Crear una tabla para los jugadores
+CREATE TABLE Players (
+    PlayerID INT IDENTITY(1,1) PRIMARY KEY,
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    Team NVARCHAR(50),
+    Position NVARCHAR(20)
+);
+GO
+
+-- Procedimiento almacenado para insertar un nuevo jugador
+CREATE PROCEDURE InsertPlayer
+    @FirstName NVARCHAR(50),
+    @LastName NVARCHAR(50),
+    @Team NVARCHAR(50),
+    @Position NVARCHAR(20)
+AS
+BEGIN
+    INSERT INTO Players (FirstName, LastName, Team, Position)
+    VALUES (@FirstName, @LastName, @Team, @Position);
+END;
+GO
+
+-- Procedimiento almacenado para obtener información de un jugador por ID
+CREATE PROCEDURE GetPlayerByID
+    @PlayerID INT
+AS
+BEGIN
+    SELECT * FROM Players WHERE PlayerID = @PlayerID;
+END;
+GO
+
+CREATE PROCEDURE GetPlayer
+
+AS
+BEGIN
+    SELECT * FROM Players 
+END;
+GO
+
+
+-- Procedimiento almacenado para actualizar la información de un jugador
+CREATE PROCEDURE UpdatePlayer
+    @PlayerID INT,
+    @FirstName NVARCHAR(50),
+    @LastName NVARCHAR(50),
+    @Team NVARCHAR(50),
+    @Position NVARCHAR(20)
+AS
+BEGIN
+    UPDATE Players
+    SET FirstName = @FirstName,
+        LastName = @LastName,
+        Team = @Team,
+        Position = @Position
+    WHERE PlayerID = @PlayerID;
+END;
+GO
+
+-- Procedimiento almacenado para eliminar un jugador por ID
+CREATE PROCEDURE DeletePlayer
+    @PlayerID INT
+AS
+BEGIN
+    DELETE FROM Players WHERE PlayerID = @PlayerID;
+END;
+GO
